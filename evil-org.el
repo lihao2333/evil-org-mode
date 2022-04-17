@@ -727,10 +727,18 @@ Includes tables, list items and subtrees."
 
 (defun evil-org--populate-todo-bindings ()
   "Bindings for easy todo insertion."
-  (evil-define-key 'normal 'evil-org-mode
+  (evil-define-key '(normal visual) 'evil-org-mode
     (kbd "t") 'org-todo
-    (kbd "T") (evil-org-define-eol-command org-insert-todo-heading)
-    (kbd "M-t") (evil-org-define-eol-command org-insert-todo-subheading)))
+    (kbd "SPC o o") 'org-toggle-checkbox
+    (kbd "SPC o j") 'org-insert-todo-heading
+    (kbd "SPC o l") 'org-insert-todo-subheading
+    (kbd "SPC o i") (lambda () (interactive) (org-toggle-checkbox '(16)) ) ;; Set checkbox state to doing state.
+    (kbd "SPC p") 'org-sparse-tree
+    (kbd "SPC b h") 'evil-org-org-insert-heading-below
+    (kbd "SPC b s") 'evil-org-org-insert-subheading-below
+    (kbd "SPC c h") 'evil-org-org-insert-heading-respect-content-below
+    (kbd "SPC c t") 'evil-org-org-insert-todo-heading-respect-content-below
+    ))
 
 (defun evil-org--populate-heading-bindings ()
   "Bindings for easy heading insertion."
